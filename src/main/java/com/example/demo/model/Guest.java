@@ -18,12 +18,12 @@ import javax.persistence.MapKeyEnumerated;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "entities")
+@Table(name = "guests")
 @Access(AccessType.PROPERTY)
-public class MyEntity {
+public class Guest {
 
 	private String id;
-	private Map<Keys, Values> map;
+	private Map<Beverages, Sentiments> map;
 
 	@Id
 	@GeneratedValue
@@ -36,24 +36,24 @@ public class MyEntity {
 	}
 
 	@ElementCollection
-	@JoinTable(name = "join_table", joinColumns = @JoinColumn(name = "my_entitiy_id"))
-	@Column(name = "my_map_values")
+	@JoinTable(name = "sentiments", joinColumns = @JoinColumn(name = "guest_id"))
+	@Column(name = "sentiment")
 	@Enumerated(EnumType.STRING)
 	@MapKeyEnumerated(EnumType.STRING)
-	@MapKeyColumn(name = "my_map_keys")
-	public Map<Keys, Values> getMyMap() {
+	@MapKeyColumn(name = "beverage")
+	public Map<Beverages, Sentiments> getMyMap() {
 		return map;
 	}
 
-	public void setMyMap(Map<Keys, Values> map) {
+	public void setMyMap(Map<Beverages, Sentiments> map) {
 		this.map = map;
 	}
 
-	public enum Keys {
-		IMPORTANT, UNIMPORTANT;
+	public enum Sentiments {
+		LIKE, DISLIKE;
 	}
 
-	public enum Values {
+	public enum Beverages {
 		MILK, WINE, BEER;
 	}
 
